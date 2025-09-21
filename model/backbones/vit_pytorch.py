@@ -30,7 +30,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torchvision
-from torch._six import container_abcs
+from collections.abc import Iterable  # thay cho torch._six.container_abcs
 
 import torchvision.transforms.functional as TF
 
