@@ -55,6 +55,10 @@ def make_loss(cfg, num_classes):    # modified by gu
                     return cfg.MODEL.ID_LOSS_WEIGHT * ID_LOSS + \
                                cfg.MODEL.TRIPLET_LOSS_WEIGHT * TRI_LOSS
                 else:
+                    # Initialize consistency loss variables
+                    CON_LOSS_ID = 0
+                    CON_LOSS_TR = 0
+                    
                     if isinstance(score, list):
                         ID_LOSS = [F.cross_entropy(scor, target) for scor in score[1:]]
                         ID_LOSS = sum(ID_LOSS) / len(ID_LOSS)
@@ -86,5 +90,3 @@ def make_loss(cfg, num_classes):    # modified by gu
         print('expected sampler should be softmax, triplet, softmax_triplet or softmax_triplet_center'
               'but got {}'.format(cfg.DATALOADER.SAMPLER))
     return loss_func, center_criterion
-
-
