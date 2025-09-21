@@ -13,13 +13,14 @@ from .sampler_ddp import RandomIdentitySampler_DDP
 import torch.distributed as dist
 from .vrai import VRAI
 from .uav_veid import UAVVeID
-
+from .veri import VeRi
 
 __factory = {
     'uavhuman': UAVHuman,
     'prai1581': PRAI1581,
     'vrai': VRAI,
     'uav_veid': UAVVeID,
+    'veri': VeRi,
 
 }
 
