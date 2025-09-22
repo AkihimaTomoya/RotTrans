@@ -159,9 +159,11 @@ def do_train(cfg,
                             target_view = target_view.to(device)
                             feat = model(img, cam_label=camids, view_label=target_view)
                             evaluator.update((feat, vid, camid))
-                    cmc, mAP, _, _, _, _, _ = evaluator.compute()
+                    # Fixed: Now unpacking 8 values instead of 7
+                    cmc, mAP, mINP, _, _, _, _, _ = evaluator.compute()
                     logger.info("Validation Results - Epoch: {}".format(epoch))
                     logger.info("mAP: {:.1%}".format(mAP))
+                    logger.info("mINP: {:.1%}".format(mINP))
                     for r in [1, 5, 10]:
                         logger.info("CMC curve, Rank-{:<3}:{:.1%}".format(r, cmc[r - 1]))
                     torch.cuda.empty_cache()
@@ -174,9 +176,11 @@ def do_train(cfg,
                         target_view = target_view.to(device)
                         feat = model(img, cam_label=camids, view_label=target_view)
                         evaluator.update((feat, vid, camid))
-                cmc, mAP, _, _, _, _, _ = evaluator.compute()
+                # Fixed: Now unpacking 8 values instead of 7
+                cmc, mAP, mINP, _, _, _, _, _ = evaluator.compute()
                 logger.info("Validation Results - Epoch: {}".format(epoch))
                 logger.info("mAP: {:.1%}".format(mAP))
+                logger.info("mINP: {:.1%}".format(mINP))
                 for r in [1, 5, 10]:
                     logger.info("CMC curve, Rank-{:<3}:{:.1%}".format(r, cmc[r - 1]))
                 torch.cuda.empty_cache()
@@ -212,9 +216,11 @@ def do_inference(cfg,
             evaluator.update((feat, pid, camid))
             img_path_list.extend(imgpath)
 
-    cmc, mAP, _, _, _, _, _ = evaluator.compute()
+    # Fixed: Now unpacking 8 values and using the correct ones
+    cmc, mAP, mINP, _, _, _, _, _ = evaluator.compute()
     logger.info("Validation Results ")
     logger.info("mAP: {:.1%}".format(mAP))
+    logger.info("mINP: {:.1%}".format(mINP))
     for r in [1, 5, 10]:
         logger.info("CMC curve, Rank-{:<3}:{:.1%}".format(r, cmc[r - 1]))
     return cmc[0], cmc[4]
