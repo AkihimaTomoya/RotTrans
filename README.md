@@ -19,3 +19,7 @@ If you use this code in your research, please cite our paper:
 }
 ```
 
+``` Python
+python train.py --config_file configs/VeRi/vit_transreid_stride_384.yml \
+    MODEL.DEVICE_ID "('0')"
+```
