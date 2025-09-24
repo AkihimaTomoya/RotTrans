@@ -14,6 +14,7 @@ import torch.distributed as dist
 from .vrai import VRAI
 from .uav_veid import UAVVeID
 from .veri import VeRi
+from .realdata import RealData
 
 __factory = {
     'uavhuman': UAVHuman,
@@ -21,7 +22,7 @@ __factory = {
     'vrai': VRAI,
     'uav_veid': UAVVeID,
     'veri': VeRi,
-
+    'realdata': RealData
 }
 
 def train_collate_fn(batch):
