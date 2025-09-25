@@ -212,7 +212,8 @@ def do_inference(cfg, model, val_loader, num_query):
             evaluator.update((feat, pid, camid))
             img_path_list.extend(imgpath)
 
-    cmc, mAP, all_AP, all_INP, q_pids, g_pids, q_camids = evaluator.compute()
+    cmc, mAP, mINP, distmat, pids, camids, qf, gf = evaluator.compute()
+
     logger.info("Validation Results ")
     logger.info("mAP: {:.1%}".format(mAP))
     for r in [1, 5, 10]:
